@@ -4,7 +4,6 @@ function bfs(graph, start, visited) {
 
     while (queue.length !== 0) {
         let v = queue.shift();
-        console.log(v);
 
         for (let i = 0; i < graph[v].length; i++) {
             let nextNode = graph[v][i];
