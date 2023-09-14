@@ -45,9 +45,9 @@ function dijkstra(start) {
 const INF = 1e9;
 const [N, M] = input[0].split(' ').map(Number);
 const start = parseInt(input[1]);
-let graph = Array.from({ length: N + 1 }, () => []);
 let visited = new Array(N + 1).fill(false);
 let distance = new Array(N + 1).fill(INF);
+let graph = Array.from({ length: N + 1 }, () => []);
 
 for (let i = 0; i < M; i++) {
     let [a, b, c] = input[i + 2].split(' ').map(Number);
