@@ -1,58 +1,63 @@
-def virus(x, y):
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+def balancedIndex(p):
+    count = 0
 
-        if nx >= 0 and nx < n and ny >= 0 and ny < m:
-            if temp[nx][ny] == 0:
-                temp[nx][ny] = 2
-                virus(nx, ny)
+    for i in range(len(p)):
+        if p[i] == "(":
+            count += 1
+        else:
+            count -= 1
 
-def getScore():
-    score = 0
-    for i in range(n):
-        for j in range(m):
-            if temp[i][j] == 0:
-                score += 1
-    return score
+        if count == 0:
+            return i
 
-def dfs(count):
-    global result
+def checkProfer(p):
+    count = 0
 
-    if count == 3:
-        for i in range(n):
-            for j in range(m):
-                temp[i][j] = data[i][j]
+    for i in p:
+        if i == "(":
+            count += 1
+        else:
+            if count == 0:
+                return False
+            count -= 1
         
-        for i in range(n):
-            for j in range(m):
-                if temp[i][j] == 2:
-                    virus(i, j)
-        
-        result = max(result, getScore())
-        return
-    for i in range(n):
-        for j in range(m):
-            if data[i][j] == 0:
-                data[i][j] = 1
-                count += 1
-                dfs(count)
-                data[i][j] = 0
-                count -= 1
+    return True
 
-tc = int(input())
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
 
-for t in range(tc):
-    n, m = map(int, input().split())
-    data = []
-    temp = [[0] * m for _ in range(n)]
+def solution(p):
+    answer = ""
 
-    for _ in range(n):
-        data.append(list(map(int, input().split())))
+    if p == "":
+        return answer
 
-    result = 0
+    index = balancedIndex(p)
+    u = p[:index + 1]
+    v = p[index + 1:]
 
-    dfs(0)
-    print(result)
+    if checkProfer(u):
+        answer = u + solution(v); 
+    else:
+        answer = "("
+        answer += solution(v)
+        answer += ")"
+        u = list(u[1:-1])
+
+        for i in range(len(u)):
+            if u[i] == "(":
+                u[i] = ")"
+            else:
+                u[i] = "("
+            
+        answer += "".join(u)
+
+    return answer
+
+input = [3,
+    "(()())()",
+    ")(",
+    "()))((()",
+]
+tc = input[0]
+
+for t in range(1,tc + 1):
+    print(solution(input[t]))
