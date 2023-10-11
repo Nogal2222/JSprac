@@ -42,8 +42,3 @@ heapqDijkstra(start);
 for (let i = 1; i <= N; i++) {
     console.log(distance[i] === INF ? "INFINITY" : distance[i]);
 }
-
-
-
-
-
