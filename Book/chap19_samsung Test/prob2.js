@@ -74,7 +74,6 @@ function dfs(array, now_x, now_y, total) {
     }
 }
 
-const { dir } = require("console");
 const fs = require("fs");
 const input = fs.readFileSync("prob2.txt").toString().split('\n').map(item => item.trim());
 const tc = Number(input[0]);
